@@ -9,6 +9,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import br.ufscar.dc.dsw.Trabalho2.models.Usuario;
 
+
+@SuppressWarnings("serial")
 public class UsuarioDetails implements UserDetails {
 
 	private Usuario usuario;
