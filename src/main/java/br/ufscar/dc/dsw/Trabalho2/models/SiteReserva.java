@@ -1,4 +1,4 @@
-package br.ufscar.dc.dsw.Trabalho2.models.entities;
+package br.ufscar.dc.dsw.Trabalho2.models;
 
 
 import jakarta.persistence.Column;
@@ -9,42 +9,21 @@ import jakarta.validation.constraints.NotBlank;
 @SuppressWarnings("serial")
 @Entity
 @Table(name="SiteReserva")
-public class SiteReserva extends AbstractEntity<Long> {
+public class SiteReserva extends Usuario {
 	
 	
-	@NotBlank
-	@Column(nullable = false, length = 64, unique = true)
-	private String email;
-	
-	@NotBlank
-	@Column(nullable = false, length = 64)
-	private String senha;
-	
-	@NotBlank
+	@NotBlank(message = "{NotNull.site.url}")
 	@Column(nullable = false, length = 64, unique = true)
 	private String url;
 	
-	@NotBlank
+	@NotBlank(message = "{NotNull.site.nome}")
 	@Column(nullable = false, length = 32)
 	private String nome;
 	
-	@NotBlank
-	@Column(nullable = false, length = 20, unique = true)
+	@NotBlank(message = "{NotNull.site.telefone}")
+	@Column(nullable = false, length = 20)
 	private String telefone;
 	
-	// Getters e Setters
-	public String getEmail() {
-		return email;
-	}
-	public void setEmail(String email) {
-		this.email = email;
-	}
-	public String getSenha() {
-		return senha;
-	}
-	public void setSenha(String senha) {
-		this.senha = senha;
-	}
 	public String getUrl() {
 		return url;
 	}

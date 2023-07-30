@@ -1,4 +1,4 @@
-package validation;
+package br.ufscar.dc.dsw.Trabalho2.validation;
 
 import org.springframework.beans.factory.annotation.Autowired;
 

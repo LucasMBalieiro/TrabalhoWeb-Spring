@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import br.ufscar.dc.dsw.Trabalho2.dao.IHotelDAO;
-import br.ufscar.dc.dsw.Trabalho2.models.entities.Hotel;
+import br.ufscar.dc.dsw.Trabalho2.models.Hotel;
 import br.ufscar.dc.dsw.Trabalho2.service.spec.IHotelService;
 
 @Service
