@@ -2,7 +2,7 @@ package br.ufscar.dc.dsw.Trabalho2.service.spec;
 
 import java.util.List;
 
-import br.ufscar.dc.dsw.Trabalho2.models.entities.SiteReserva;
+import br.ufscar.dc.dsw.Trabalho2.models.SiteReserva;
 
 
 public interface ISiteResService {

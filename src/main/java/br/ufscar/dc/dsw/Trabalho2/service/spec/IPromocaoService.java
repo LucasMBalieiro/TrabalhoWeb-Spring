@@ -9,7 +9,7 @@ import br.ufscar.dc.dsw.Trabalho2.models.Promocao;
 
 public interface IPromocaoService {
 
-	Promocao buscarPorId(Long id);
+	Promocao buscarPorId(long id);
 
 	List<Promocao> buscarTodosPorHotel(Hotel h);
 	

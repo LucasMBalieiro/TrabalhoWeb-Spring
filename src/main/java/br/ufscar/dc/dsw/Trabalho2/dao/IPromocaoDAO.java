@@ -10,7 +10,7 @@ import br.ufscar.dc.dsw.Trabalho2.models.Promocao;
 @SuppressWarnings("unchecked")
 public interface IPromocaoDAO extends CrudRepository<Promocao, Long>{
 
-	Promocao FindById(Long id);
+	Promocao findById(long id);
 	
 	List<Promocao> findAllByHotel(Hotel email);
 	

@@ -23,8 +23,8 @@ public class PromocaoService implements IPromocaoService{
 	}
 	
 	@Transactional(readOnly = true)
-	public Promocao buscarPorId(Long id) {
-		return dao.FindById(id);
+	public Promocao buscarPorId(long id) {
+		return dao.findById(id);
 	}
 	
 	@Transactional(readOnly = true)

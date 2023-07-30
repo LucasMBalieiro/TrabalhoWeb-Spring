@@ -1,4 +1,4 @@
-package br.ufscar.dc.dsw.Trabalho2.models.entities;
+package br.ufscar.dc.dsw.Trabalho2.models;
 
 import java.io.Serializable;
 
