@@ -18,7 +18,7 @@ public class Usuario extends AbstractEntity<Long> {
 	
 	@NotBlank(message = "{NotNull.usuario.email}")
 	@UniqueEmail(message = "{NotUnique.usuario.email}")
-	@Column(nullable = false, length = 19, unique = true)
+	@Column(nullable = false, length = 64, unique = true)
 	private String email;
 	
 	@NotBlank(message = "{NotNull.usuario.senha}")
