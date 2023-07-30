@@ -8,15 +8,7 @@ import jakarta.validation.constraints.NotBlank;
 @SuppressWarnings("serial")
 @Entity
 @Table(name="hotel")
-public class Hotel extends AbstractEntity<Long> {
-
-	@NotBlank
-	@Column(nullable = false, length = 64, unique = true)
-	private String email;
-	
-	@NotBlank
-	@Column(nullable = false, length = 64)
-	private String senha;
+public class Hotel extends Usuario{
 	
 	@NotBlank
 	@Column(nullable = false, length = 64, unique = true)
@@ -29,23 +21,6 @@ public class Hotel extends AbstractEntity<Long> {
 	@NotBlank
 	@Column(nullable = false, length = 32)
 	private String cidade;
-	
-	
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public String getSenha() {
-		return senha;
-	}
-
-	public void setSenha(String senha) {
-		this.senha = senha;
-	}
 
 	public String getCnpj() {
 		return cnpj;

@@ -1,12 +1,13 @@
 package br.ufscar.dc.dsw.Trabalho2.models;
 
+import br.ufscar.dc.dsw.Trabalho2.validation.UniqueEmail;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Inheritance;
 import jakarta.persistence.InheritanceType;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotNull;
-import validation.UniqueEmail;
+import jakarta.validation.constraints.NotBlank;
+
 
 @SuppressWarnings("serial")
 @Entity
@@ -15,16 +16,16 @@ import validation.UniqueEmail;
 public class Usuario extends AbstractEntity<Long> {
 
 	
-	@NotNull(message = "{NotNull.usuario.email}")
+	@NotBlank(message = "{NotNull.usuario.email}")
 	@UniqueEmail(message = "{NotUnique.usuario.email}")
 	@Column(nullable = false, length = 19, unique = true)
 	private String email;
 	
-	@NotNull(message = "{NotNull.usuario.senha}")
+	@NotBlank(message = "{NotNull.usuario.senha}")
 	@Column(nullable = false, length = 64)
 	private String senha;
 	
-	@NotNull(message = "{NotNull.usuario.papel}")
+	@NotBlank(message = "{NotNull.usuario.tipo}")
 	@Column(nullable = false, length = 3)
 	private String tipo;
 
