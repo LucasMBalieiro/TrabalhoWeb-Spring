@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import br.ufscar.dc.dsw.Trabalho2.models.Hotel;
+import br.ufscar.dc.dsw.Trabalho2.models.entities.Hotel;
 import br.ufscar.dc.dsw.Trabalho2.service.spec.IHotelService;
 import jakarta.validation.Valid;
 

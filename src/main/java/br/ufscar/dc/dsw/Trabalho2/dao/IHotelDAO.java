@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
-import br.ufscar.dc.dsw.Trabalho2.models.Hotel;
+import br.ufscar.dc.dsw.Trabalho2.models.entities.Hotel;
 
 @SuppressWarnings("unchecked")
 public interface IHotelDAO extends CrudRepository<Hotel, Long>{

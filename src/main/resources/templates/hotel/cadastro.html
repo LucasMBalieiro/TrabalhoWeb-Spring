@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<meta charset="UTF-8" />
+<title></title>
+
+</head>
+<body>
+	<div class="container my-2">
+		<h2>Cadastro Hotel</h2>
+		<form action="#" th:action="${hotel.id == null} ? @{/hoteis/salvar} : @{/hoteis/editar}" th:object="${hotel}" method="POST">
+			<input type="hidden" id="id" th:field="*{id}">
+			
+			<span th:if="${#fields.hasErrors('cnpj.id')}" th:errors="*{cnpj.id}" class="text-danger"></span>
+			<input type="text" th:field="*{cnpj.id}" placeholder="Id cnpj" class="form-control mb-4 col-4" readonly>
+			
+      		<span th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}" class="text-danger"></span>
+			<input type="text" th:field="*{nome}" placeholder="nome" class="form-control mb-4 col-4" required="required">
+      		
+      		<span th:if="${#fields.hasErrors('endereco')}" th:errors="*{endereco}" class="text-danger"></span>
+			<input type="text" th:field="*{endereco}" placeholder="endereco" class="form-control mb-4 col-4" required="required">
+			
+			
+			
+			<button type="submit" class="btn btn-info col-2">Salvar</button>
+		</form>
+		<hr>
+		<a th:href="@{/cnpjs/listarhotel}">Retornar para a lista de hoteis</a>
+	</div>
+</body>
+</html>

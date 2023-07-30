@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
-import br.ufscar.dc.dsw.Trabalho2.models.SiteReserva;
+import br.ufscar.dc.dsw.Trabalho2.models.entities.SiteReserva;
 
 @SuppressWarnings("unchecked")
 public interface ISiteReservaDAO extends CrudRepository<SiteReserva, Long>{

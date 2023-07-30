@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import br.ufscar.dc.dsw.Trabalho2.dao.ISiteReservaDAO;
-import br.ufscar.dc.dsw.Trabalho2.models.SiteReserva;
+import br.ufscar.dc.dsw.Trabalho2.models.entities.SiteReserva;
 import br.ufscar.dc.dsw.Trabalho2.service.spec.ISiteResService;
 
 @Service
