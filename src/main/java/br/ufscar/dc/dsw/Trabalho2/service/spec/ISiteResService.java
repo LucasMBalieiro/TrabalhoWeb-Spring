@@ -13,5 +13,5 @@ public interface ISiteResService {
 
 	void salvar(SiteReserva email);
 
-	void excluir(Long id);	
+	void excluir(long id);
 }

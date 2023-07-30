@@ -12,5 +12,5 @@ public interface IHotelService {
 	
 	void salvar(Hotel email);
 	
-	void excluir(Long id);
+	void excluir(long id);
 }

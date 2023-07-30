@@ -21,7 +21,7 @@ public class SiteResService implements ISiteResService{
 		dao.save(siteReserva);
 	}
 	
-	public void excluir(Long id) {
+	public void excluir(long id) {
 		dao.deleteById(id);
 	}
 	

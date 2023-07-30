@@ -11,7 +11,7 @@ public interface IUsuarioService {
 	
 	void salvar(Usuario usuario);
 	
-	void excluir(Long id);
+	void excluir(long id);
 	
 	Usuario buscaUsuario(String email);
 }

@@ -21,7 +21,7 @@ public class UsuarioService implements IUsuarioService {
 		dao.save(usuario);
 	}
 
-	public void excluir(Long id) {
+	public void excluir(long id) {
 		dao.deleteById(id);
 	}
 

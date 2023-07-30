@@ -21,7 +21,7 @@ public class HotelService implements IHotelService{
 		dao.save(hotel);
 	}
 	
-	public void excluir(Long id) {
+	public void excluir(long id) {
 		dao.deleteById(id);
 	}
 	
