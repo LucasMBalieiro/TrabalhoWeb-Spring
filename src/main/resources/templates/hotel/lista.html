@@ -1,64 +1,75 @@
 <!DOCTYPE html>
-<html layout:decorate="~{layout}">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
 <meta charset="UTF-8" />
+<title>Listar Veiculo</title>
+
 </head>
+<script>
+	function filterFunction() {
+	  // Declare variables
+	  var input, filter, table, tr, td, i, txtValue;
+	  input = document.getElementById("modelFilter");
+	  filter = input.value.toUpperCase();
+	  table = document.getElementById("tabelaCarros");
+	  tr = table.getElementsByTagName("tr");
+	
+	  // Loop through all table rows, and hide those who don't match the search query
+	  for (i = 0; i < tr.length; i++) {
+	    td = tr[i].getElementsByTagName("td")[3];
+	    if (td) {
+	      txtValue = td.textContent || td.innerText;
+	      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+	        tr[i].style.display = "";
+	      } else {
+	        tr[i].style.display = "none";
+	      }
+	    }
+	  }
+	}
+</script>
 <body>
-	<section class="layout-content" layout:fragment="corpo">
-
-		<nav class="navbar navbar-expand-md bg-light">
-			<div class="collapse navbar-collapse" id="navbarsExampleDefault">
-				<ul class="navbar-nav mr-auto">
-					<li class="nav-item active">
-						<i class="oi oi-caret-right"></i>
-						<span th:text="#{hotel.listar.label}"></span>
-					</li>
-				</ul>
-				<a class="btn btn-primary btn-md" th:href="@{/editoras/cadastrar}" role="button"> 
-					<span class="oi oi-plus" title="Cadastro" aria-hidden="true"></span> 
-					<span th:text="#{hotel.cadastrar.label}"></span>
-				</a>
-			</div>
-		</nav>
-
-		<div class="container" id="listagem">
-
-			<div th:replace="fragments/alert"></div>
-
-			<div class="table-responsive">
-				<table class="table table-striped table-hover table-sm">
-					<thead>
-						<tr>
-							<th>#</th>
-							<th th:text="#{hotel.cnpj.label}"></th>
-							<th th:text="#{editora.nome.label}"></th>
-							<th th:text="#{acao.label}"></th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr th:each="editora : ${editoras}">
-							<td th:text="${editora.id}"></td>
-							<td th:text="${editora.CNPJ}"></td>
-							<td th:text="${editora.nome}"></td>
-							<td colspan="2">
-								<a class="btn btn-info btn-sm" th:href="@{/editoras/editar/{id} (id=${editora.id}) }"
-									role="button"> 
-									<span class="oi oi-brush" th:title="#{link.editar.label}" aria-hidden="true"> </span>
-								</a>
-								<button
-									th:id="${'btn_editoras/excluir/' + editora.id}"
-									type="button" class="btn btn-danger btn-sm"
-									data-toggle="modal" data-target="#myModal">
-									<span class="oi oi-circle-x" th:title="#{link.excluir.label}" aria-hidden="true"></span>
-								</button>
-							</td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
-		</div>
-
-		<div th:replace="fragments/modal :: modal"></div>
-	</section>
+	<div class="container my-2" align="center">
+		<h1>Carros</h1>
+		<a th:href="@{/}">Home</a>
+		<hr>
+		<input type="text" id="modelFilter" onkeyup="filterFunction()" placeholder ="Procure pelo modelo">
+		<table border="1" class="table table-striped table-responsive-md" id="tabelaCarros">
+			<thead>
+				<tr>
+					<th>#</th>
+					<th th:text="Loja"></th>
+					<th th:text="Placa"></th>
+					<th th:text="Modelo"></th>
+					<th th:text="Chassi"></th>
+					<th th:text="Ano"></th>
+					<th th:text="Quilometragem"></th>
+					<th th:text="Descrição"></th>
+					<th th:text="Valor"></th>
+					<th th:text="Fotos"></th>
+					<div sec:authorize="hasAuthority('CLIENTE')">
+						<th>Ações</th>
+					</div>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="carro : ${carros}">
+					<td th:text="${carro.id}"></td>
+					<td th:text="${carro.loja.nome}"></td>
+					<td th:text="${carro.placa}"></td>
+					<td th:text="${carro.modelo}"></td>
+					<td th:text="${carro.chassi}"></td>
+					<td th:text="${carro.ano}"></td>
+					<td th:text="${carro.quilometragem}"></td>
+					<td th:text="${carro.descricao}"></td>
+					<td th:text="${carro.valor}"></td>
+					<td th:text="${carro.fotos}"></td>
+					<div sec:authorize="hasAuthority('CLIENTE')">
+							<td><a th:href="@{/propostas/cadastrar/{id} (id=${carro.id}) }">Adicionar Proposta</a></td>
+					</div>			
+				</tr>
+			</tbody>
+		</table>
+	</div>
 </body>
 </html>
