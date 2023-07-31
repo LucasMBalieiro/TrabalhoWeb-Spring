@@ -26,6 +26,10 @@ public class UniqueDateValidation implements ConstraintValidator<ValidPromocao, 
                 if (promoI.getDataInicio().equals(promocao.getDataInicio()) && promoI.getDataFim().equals(promocao.getDataFim())) {
                     isValid[0] = false;
                 }
+
+                if (promoI.getDataFim().isBefore(promoI.getDataInicio())){
+                    isValid[0] = false;
+                }
             });
 
             // Se a validação falhar, o método isValid retorna false

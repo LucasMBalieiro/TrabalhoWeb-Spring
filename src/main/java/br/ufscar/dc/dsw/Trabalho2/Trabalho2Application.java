@@ -20,34 +20,34 @@ public class Trabalho2Application {
 	@Bean
 	public CommandLineRunner demo(BCryptPasswordEncoder encoder, IUsuarioDAO usuarioDAO, IHotelDAO hotelDAO, ISiteReservaDAO siteDAO, IPromocaoDAO promocaoDAO) {
 		return (args) -> {
+			try {
+				Usuario a1 = new Usuario(
+						"admin@admin",
+						encoder.encode("admin123"));
+				usuarioDAO.save(a1);
 
-			Usuario a1 = new Usuario(
-					"admin@admin",
-					encoder.encode("admin123"));
-			usuarioDAO.save(a1);
+				Hotel h1 = new Hotel("vitor.orsin@gmail.com",
+						encoder.encode("123"),
+						"77.888.999/0001-10",
+						"Repouso Amimir",
+						"São Carlos");
+				hotelDAO.save(h1);
 
-			Hotel h1 = new Hotel("vitor.orsin@gmail.com",
-					encoder.encode("123"),
-					"77.888.999/0001-10",
-					"Repouso Amimir",
-					"São Carlos");
-			hotelDAO.save(h1);
+				SiteReserva s1 = new SiteReserva(
+						"trivago@gmail.com",
+						encoder.encode("12tri"),
+						"www.trivago.com.br",
+						"Trivago",
+						"(16) 3382-9922");
+				siteDAO.save(s1);
 
-			SiteReserva s1 = new SiteReserva(
-					"trivago@gmail.com",
-					encoder.encode("12tri"),
-					"www.trivago.com.br",
-					"Trivago",
-					"(16) 3382-9922");
-			siteDAO.save(s1);
-
-			Promocao p1 = new Promocao(
-					h1,
-					s1,
-					new BigDecimal("500.00"),
-					LocalDate.of(2022, 12, 18),
-					LocalDate.of(2023, 1, 18));
-			promocaoDAO.save(p1);
+				Promocao p1 = new Promocao(
+						h1,
+						s1,
+						new BigDecimal("500.00"),
+						LocalDate.of(2022, 12, 18),
+						LocalDate.of(2023, 1, 18));
+				promocaoDAO.save(p1);
 
 //			Locacao l1 = new Locacao();
 //			l1.setClient(u2);
@@ -62,6 +62,11 @@ public class Trabalho2Application {
 //			l2.setDate(LocalDate.of(2024, 1, 1));
 //			l2.setHour(LocalTime.of(13, 0));
 //			locacaoDAO.save(l2);
+
+			}
+			catch(Exception e){
+
+			}
 		};
 	}
 }
