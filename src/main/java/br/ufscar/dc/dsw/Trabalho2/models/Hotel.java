@@ -9,7 +9,8 @@ import jakarta.validation.constraints.NotBlank;
 @Entity
 @Table(name="hotel")
 public class Hotel extends Usuario{
-	
+
+
 	@NotBlank
 	@Column(nullable = false, length = 64, unique = true)
 	private String cnpj;
@@ -21,6 +22,10 @@ public class Hotel extends Usuario{
 	@NotBlank
 	@Column(nullable = false, length = 32)
 	private String cidade;
+
+	public Hotel() {
+
+	}
 
 	public String getCnpj() {
 		return cnpj;
@@ -43,6 +48,12 @@ public class Hotel extends Usuario{
 	}
 
 	public void setCidade(String cidade) {
+		this.cidade = cidade;
+	}
+
+	public Hotel(String cnpj, String nome, String cidade) {
+		this.cnpj = cnpj;
+		this.nome = nome;
 		this.cidade = cidade;
 	}
 
