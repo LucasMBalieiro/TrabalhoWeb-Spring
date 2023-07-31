@@ -38,11 +38,11 @@ public class WebSecurityConfig{
   public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		http
 		.authorizeHttpRequests(authz -> authz
-				.requestMatchers("/", "/index", "/error").permitAll()
-				.requestMatchers("/login/**", "/site/listar", "/site/lista", "/image/**", "/hotel/listar","/hotel/lista").permitAll()
-				.requestMatchers("/admin/**").hasRole("ADMIN")
-				.requestMatchers("/hotel/**").hasRole("HOTEL")
-				.requestMatchers("/site/**").hasRole("SITE")
+				.requestMatchers("/", "/layout", "/error", "/listaHoteis").permitAll()
+				.requestMatchers("/login/**", "/image/**").permitAll()
+				.requestMatchers("/Admin/**").hasRole("ADM")
+				.requestMatchers("/Hotel/**").hasRole("HOT")
+				.requestMatchers("/Site/**").hasRole("SIT")
 				.anyRequest().authenticated())
 		.formLogin(login -> login.loginPage("/login").permitAll())
 		.logout((logout) -> logout.logoutSuccessUrl("/").permitAll());
