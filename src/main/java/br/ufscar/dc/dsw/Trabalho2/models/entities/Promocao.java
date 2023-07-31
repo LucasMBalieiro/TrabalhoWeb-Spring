@@ -1,4 +1,4 @@
-package br.ufscar.dc.dsw.Trabalho2.models;
+package br.ufscar.dc.dsw.Trabalho2.models.entities;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
