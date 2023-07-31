@@ -13,4 +13,9 @@ public interface IHotelService {
 	void salvar(Hotel email);
 	
 	void excluir(long id);
+
+	List<Hotel> buscarTodosPorCidade(String cidade);
+
+	List<String> buscarCidades();
+
 }

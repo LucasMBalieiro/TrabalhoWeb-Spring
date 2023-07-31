@@ -5,7 +5,7 @@
 </head>
 <body>
 <h1>Cadastro de Hotel</h1>
-<form action="cadastrar-hotel.php" method="POST">
+<form action="#" th:action="${hotel.id == null} ? @{/hotel/salvar} : @{/hotel/editar/hotel.id}" th:object="${hotel}" method="POST">
 	<label for="cnpj">CNPJ:</label>
 	<input type="text" id="cnpj" name="cnpj" required><br>
 
@@ -15,7 +15,13 @@
 	<label for="cidade">Cidade:</label>
 	<input type="text" id="cidade" name="cidade" required><br>
 
-	<input type="submit" value="Cadastrar">
-</form>
+	<label for="email">Email:</label>
+	<input type="text" id="email" name="email" required><br>
+
+	<label for="senha">Senha:</label>
+	<input type="password" id="senha" name="senha" required><br>
+
+	<button type="submit" class="btn btn-info col-2">Salvar</button>
+
 </body>
 </html>

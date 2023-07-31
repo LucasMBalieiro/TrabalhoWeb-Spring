@@ -1,34 +1,55 @@
 package br.ufscar.dc.dsw.Trabalho2.controller;
 
+import br.ufscar.dc.dsw.Trabalho2.service.spec.IPromocaoService;
+import br.ufscar.dc.dsw.Trabalho2.service.spec.ISiteResService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.ufscar.dc.dsw.Trabalho2.models.Hotel;
 import br.ufscar.dc.dsw.Trabalho2.service.spec.IHotelService;
 import jakarta.validation.Valid;
 
+import java.util.List;
+
 @Controller
 @RequestMapping("/hotel")
 public class HotelController {
-
+	//WIRES
 	@Autowired
-	private IHotelService service;
-	
+	private IHotelService hotelService;
+	@Autowired
+	private ISiteResService siteResService;
+	@Autowired
+	private IPromocaoService promocaoService;
+
+	@GetMapping(value={"/index","/"})
+	public String HomeHotel(){
+		return "hotel/home";
+	}
+
 	@GetMapping("/cadastrar")
 	public String cadastrar(Hotel hotel) {
 		return "hotel/cadastro";
 	}
 	
 	@GetMapping("/listar")
-	public String listar(ModelMap model) {
-		model.addAttribute("hotel",service.buscarTodos());
+	public String listar(ModelMap model, @RequestParam(value="cidade",required=false) String cidade) {
+		List<Hotel> l1;
+
+		List<String> l2 = hotelService.buscarCidades();
+		if(cidade != null && !cidade.isEmpty()) {
+			l1 = hotelService.buscarTodosPorCidade(cidade);
+		}
+		else {
+			l1 = hotelService.buscarTodos();
+		}
+
+		model.addAttribute("hoteis",l1);
+		model.addAttribute("cidades",l2);
 		return "hotel/lista";
 	}
 	
@@ -42,21 +63,21 @@ public class HotelController {
 		System.out.println("password = " + hotel.getSenha());
 		
 		hotel.setSenha(hotel.getSenha());
-		service.salvar(hotel);
+		hotelService.salvar(hotel);
 		attr.addFlashAttribute("sucess", "hotel.create.sucess");
 		return "redirect:/hotel/listar";
 	}
 	
 	@GetMapping("/editar/{id}")
 	public String preEditar(@PathVariable("id") Long id, ModelMap model) {
-		model.addAttribute("hotel", service.buscarPorId(id));
+		model.addAttribute("hotel", hotelService.buscarPorId(id));
 		return "hotel/cadastro";
 	}
 	
 	@GetMapping("/excluir/{id}")
 	public String excluir(@PathVariable("id") Long id, ModelMap model) {
-		service.excluir(id);
+		hotelService.excluir(id);
 		model.addAttribute("sucess", "hotel.delete.sucess");
-		return listar(model);
+		return listar(model,null);
 	}
 }
