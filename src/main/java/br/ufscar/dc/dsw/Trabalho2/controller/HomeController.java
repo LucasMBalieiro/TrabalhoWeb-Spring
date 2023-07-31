@@ -10,12 +10,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class HomeController {
     @GetMapping("/")
     public String home() {
+        System.out.println("\n\n Bem-vindo \n\n");
+        System.out.flush();
         return "layout";
     }
-
+    // Povoar tabelas
     @GetMapping("/login")
     public String login() {
-        System.out.println("\n\n Abrindo tela de login \n\n");
+        System.out.println("\n Login \n");
         System.out.flush();
         return "login";
     }

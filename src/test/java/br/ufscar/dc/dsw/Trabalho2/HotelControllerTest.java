@@ -44,8 +44,8 @@ public class HotelControllerTest {
         Random rand = new Random();
         Random randdois = new Random();
 
-        hoteis.add(new Hotel(rand.toString(), "Hotel A", "Cidade A"));
-        hoteis.add(new Hotel(randdois.toString(), "Hotel B", "Cidade B"));
+        hoteis.add(new Hotel("A@gmail.com", "A123",rand.toString(), "Hotel A", "Cidade A"));
+        hoteis.add(new Hotel("B@gmail.com", "B123",randdois.toString(), "Hotel B", "Cidade B"));
 
         // Define o comportamento esperado quando o método buscarTodos() for chamado no hotelService
         when(hotelService.buscarTodos()).thenReturn(hoteis);

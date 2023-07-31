@@ -5,13 +5,12 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 @SuppressWarnings("serial")
 @Entity
 @Table(name="SiteReserva")
 public class SiteReserva extends Usuario {
-	
-	
 	@NotBlank(message = "{NotNull.site.url}")
 	@Column(nullable = false, length = 64, unique = true)
 	private String url;
@@ -23,6 +22,16 @@ public class SiteReserva extends Usuario {
 	@NotBlank(message = "{NotNull.site.telefone}")
 	@Column(nullable = false, length = 20)
 	private String telefone;
+
+	public SiteReserva(){
+		super("SIT");
+	}
+	public SiteReserva(@NotNull String email, @NotNull String senha, @NotNull String url, String nome, String telefone) {
+		super(email, senha, "SIT");
+		this.url = url;
+		this.nome = nome;
+		this.telefone = telefone;
+	}
 	
 	public String getUrl() {
 		return url;
@@ -42,7 +51,4 @@ public class SiteReserva extends Usuario {
 	public void setTelefone(String telefone) {
 		this.telefone = telefone;
 	}
-	
-	
-
 }

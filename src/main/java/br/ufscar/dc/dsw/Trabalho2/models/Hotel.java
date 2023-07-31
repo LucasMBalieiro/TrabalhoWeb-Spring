@@ -4,13 +4,12 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 @SuppressWarnings("serial")
 @Entity
 @Table(name="hotel")
 public class Hotel extends Usuario{
-
-
 	@NotBlank
 	@Column(nullable = false, length = 64, unique = true)
 	private String cnpj;
@@ -24,7 +23,14 @@ public class Hotel extends Usuario{
 	private String cidade;
 
 	public Hotel() {
+		super("HOT");
+	}
 
+	public Hotel(@NotNull String email, @NotNull String senha, @NotNull String cnpj, String nome, String cidade) {
+		super(email, senha, "HOT");
+		this.cnpj = cnpj;
+		this.nome = nome;
+		this.cidade = cidade;
 	}
 
 	public String getCnpj() {
@@ -50,11 +56,4 @@ public class Hotel extends Usuario{
 	public void setCidade(String cidade) {
 		this.cidade = cidade;
 	}
-
-	public Hotel(String cnpj, String nome, String cidade) {
-		this.cnpj = cnpj;
-		this.nome = nome;
-		this.cidade = cidade;
-	}
-
 }

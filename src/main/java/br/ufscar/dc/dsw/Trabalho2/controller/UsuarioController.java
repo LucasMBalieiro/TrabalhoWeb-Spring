@@ -21,7 +21,7 @@ import br.ufscar.dc.dsw.Trabalho2.service.spec.IUsuarioService;
 import jakarta.validation.Valid;
 
 @Controller
-@RequestMapping("/usuarios")
+@RequestMapping("/Admin")
 public class UsuarioController {
 
 	@Autowired

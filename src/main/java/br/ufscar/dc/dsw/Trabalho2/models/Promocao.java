@@ -40,16 +40,13 @@ public class Promocao extends AbstractEntity<Long> {
 	@Column(nullable = false, columnDefinition = "Date", name = "dateFim")
 	private LocalDate dataFim;
 
+	public Promocao() {}
 	public Promocao(@NotNull Hotel hotel, @NotNull SiteReserva siteReserva, @NotNull BigDecimal valor, @NotNull LocalDate dataInicio, @NotNull LocalDate dataFim) {
 		this.hotel = hotel;
 		this.siteReserva = siteReserva;
 		this.valor = valor;
 		this.dataInicio = dataInicio;
 		this.dataFim = dataFim;
-	}
-
-	public Promocao() {
-
 	}
 
 	public Hotel getHotel() {

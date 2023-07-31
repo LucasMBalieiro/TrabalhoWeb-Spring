@@ -7,14 +7,15 @@ import jakarta.persistence.Inheritance;
 import jakarta.persistence.InheritanceType;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import org.springframework.security.core.userdetails.memory.UserAttribute;
 
 
 @Entity
 @Table(name = "Usuario")
 @Inheritance(strategy = InheritanceType.JOINED)
-public abstract class Usuario extends AbstractEntity<Long> {
+public class Usuario extends AbstractEntity<Long> {
 
-	
 	@NotBlank(message = "{NotNull.usuario.email}")
 	@UniqueEmail(message = "{NotUnique.usuario.email}")
 	@Column(nullable = false, length = 64, unique = true)
@@ -50,5 +51,24 @@ public abstract class Usuario extends AbstractEntity<Long> {
 
 	public void setTipo(String tipo) {
 		this.tipo = tipo;
+	}
+
+	public Usuario(){
+		this.tipo = "ADM";
+	}
+
+	public Usuario(String tipo){
+		this.tipo = tipo;
+	}
+
+	public Usuario(@NotNull String email, @NotNull String senha){
+		this.email = email;
+		this.senha = senha;
+		this.tipo = "ADM";
+	}
+	public Usuario(@NotNull String email, @NotNull String senha, @NotNull String papel){
+		this.email = email;
+		this.senha = senha;
+		this.tipo = papel;
 	}
 }
