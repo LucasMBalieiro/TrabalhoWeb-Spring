@@ -22,13 +22,13 @@
 </head>
 <body>
 
-	<header th:replace="/zFragments/header :: cabecalho">
+	<header th:replace="~{/zFragments/header :: cabecalho}">
 		<div>header</div>
 	</header>
 
 	<div class="layout-main">
 		<aside>
-			<nav th:replace="/zFragments/sidebar :: nav-sidebar">
+			<nav th:replace="~{/zFragments/sidebar :: nav-sidebar}">
 				<span>menu</span>
 			</nav>
 		</aside>
@@ -36,12 +36,12 @@
 <!--		<section layout:fragment="corpo">-->
 <!--			<div>conteúdo principal das páginas</div>-->
 <!--		</section>-->
-		<section th:replace="/zFragments/home :: corpo">
+		<section th:replace="~{/zFragments/home :: corpo}">
 			<div>principal</div>
 		</section>
 	</div>
 
-	<footer th:replace="/zFragments/footer :: rodape">
+	<footer th:replace="~{/zFragments/footer :: rodape}">
 		<div>footer</div>
 	</footer>
 

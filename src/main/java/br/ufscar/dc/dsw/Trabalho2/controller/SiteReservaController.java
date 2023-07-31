@@ -23,7 +23,7 @@ import jakarta.validation.Valid;
 import java.util.List;
 
 @Controller
-@RequestMapping("/sitereserva")
+@RequestMapping("/Site")
 public class SiteReservaController {
 
 	@Autowired
@@ -33,55 +33,55 @@ public class SiteReservaController {
 	@Autowired
 	private IHotelService hservice;
 
-	@GetMapping(value={"/home","/"})
-	public String index1() {
-		return "hotel/index";
-	}
-	@GetMapping("/cadastrar")
-	public String cadastrar(SiteReserva siteReserva) {
-		return "site/cadastro";
-	}
+//	@GetMapping(value={"/home","/"})
+//	public String index1() {
+//		return "hotel/index";
+//	}
+//	@GetMapping("/cadastrar")
+//	public String cadastrar(SiteReserva siteReserva) {
+//		return "site/cadastro";
+//	}
 	
-	@GetMapping("/listar")
-	public String listar(ModelMap model) {
-		model.addAttribute("sitereserva",sservice.buscarTodos());
-		return "site/lista";
-	}
+//	@GetMapping("/listar")
+//	public String listar(ModelMap model) {
+//		model.addAttribute("sitereserva",sservice.buscarTodos());
+//		return "Site/listaPromocoes";
+//	}
 	
-	@PostMapping("/salvar")
-	public String salvar(@Valid SiteReserva siteReserva, BindingResult result, RedirectAttributes attr) {
-		
-		if (result.hasErrors()) {
-			return "site/cadastro";
-		}
-
-		System.out.println("password = " + siteReserva.getSenha());
-		
-		siteReserva.setSenha(siteReserva.getSenha());
-		sservice.salvar(siteReserva);
-		attr.addFlashAttribute("sucess", "site.create.sucess");
-		return "redirect:/site/listar";
-	}
+//	@PostMapping("/salvar")
+//	public String salvar(@Valid SiteReserva siteReserva, BindingResult result, RedirectAttributes attr) {
+//
+//		if (result.hasErrors()) {
+//			return "site/cadastro";
+//		}
+//
+//		System.out.println("password = " + siteReserva.getSenha());
+//
+//		siteReserva.setSenha(siteReserva.getSenha());
+//		sservice.salvar(siteReserva);
+//		attr.addFlashAttribute("sucess", "site.create.sucess");
+//		return "redirect:/site/listar";
+//	}
 	
-	@GetMapping("/editar/{id}")
-	public String preEditar(@PathVariable("id") Long id, ModelMap model) {
-		model.addAttribute("sitereserva", sservice.buscarPorId(id));
-		return "site/cadastro";
-	}
-	
-	@GetMapping("/excluir/{id}")
-	public String excluir(@PathVariable("id") Long id, ModelMap model) {
-		sservice.excluir(id);
-		model.addAttribute("sucess", "site.delete.sucess");
-		return listar(model);
-	}
+//	@GetMapping("/editar/{id}")
+//	public String preEditar(@PathVariable("id") Long id, ModelMap model) {
+//		model.addAttribute("sitereserva", sservice.buscarPorId(id));
+//		return "site/cadastro";
+//	}
+//
+//	@GetMapping("/excluir/{id}")
+//	public String excluir(@PathVariable("id") Long id, ModelMap model) {
+//		sservice.excluir(id);
+//		model.addAttribute("sucess", "site.delete.sucess");
+//		return listar(model);
+//	}
 
 	@GetMapping("/listarPromocoes")
 	public String listarPromocoes(ModelMap model) {
 		List<Promocao> l1 = pservice.buscarTodosPorHotel(getURLAtual());
 
 		model.addAttribute("promocoes",l1);
-		return "hotel/listaPromocoes";//TODO criar html de lista de promos
+		return "Site/listaPromocoes";//TODO criar html de lista de promos
 	}
 	private Hotel getURLAtual() {
 		Authentication a = SecurityContextHolder.getContext().getAuthentication();

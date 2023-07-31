@@ -100,8 +100,8 @@
 							<goal>native2ascii</goal>
 						</goals>
 						<configuration>
-							<dest>${project.build.directory}/classes</dest>
-							<src>${project.resources[0].directory}</src>
+<!--							<dest>${project.build.directory}/classes</dest>-->
+<!--							<src>${project.resources[0].directory}</src>-->
 							<encoding>UTF-8</encoding>
 						</configuration>
 					</execution>
