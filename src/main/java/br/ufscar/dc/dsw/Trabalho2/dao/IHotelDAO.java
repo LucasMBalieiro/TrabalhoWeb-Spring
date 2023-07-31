@@ -20,7 +20,7 @@ public interface IHotelDAO extends CrudRepository<Hotel, Long>{
 	void deleteById(long id);
 	
 	@Query("SELECT h FROM Hotel h WHERE h.cidade = :cidade")
-    public Hotel getHotelByCidade(@Param("cidade") String cidade);
+    Hotel getHotelByCidade(@Param("cidade") String cidade);
 
 	List<Hotel> findAllByCidade(String cidade);
 }

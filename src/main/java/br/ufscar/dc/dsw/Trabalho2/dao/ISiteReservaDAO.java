@@ -20,5 +20,5 @@ public interface ISiteReservaDAO extends CrudRepository<SiteReserva, Long>{
 	void deleteById(long id);
 	
     @Query("SELECT e FROM SiteReserva e WHERE e.nome = :nome")
-    public SiteReserva getSiteByNome(@Param("nome") String nome);
+    SiteReserva getSiteByNome(@Param("nome") String nome);
 }

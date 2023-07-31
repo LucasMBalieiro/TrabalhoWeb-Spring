@@ -1,5 +1,9 @@
 package br.ufscar.dc.dsw.Trabalho2.controller;
 
+import br.ufscar.dc.dsw.Trabalho2.models.Hotel;
+import br.ufscar.dc.dsw.Trabalho2.models.SiteReserva;
+import br.ufscar.dc.dsw.Trabalho2.service.spec.IHotelService;
+import br.ufscar.dc.dsw.Trabalho2.service.spec.ISiteResService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -16,63 +20,159 @@ import br.ufscar.dc.dsw.Trabalho2.service.spec.IUsuarioService;
 import jakarta.validation.Valid;
 
 @Controller
-@RequestMapping("/usuarios")
-public class UsuarioController {
-	
+@RequestMapping("/admin")
+public class AdminController {
+
 	@Autowired
-	private IUsuarioService service;
-	
+	private IHotelService hservice;
+
+	@Autowired
+	private ISiteResService sservice;
+
+	@Autowired
+	private IUsuarioService uservice;
+
 	@Autowired
 	private BCryptPasswordEncoder encoder;
-	
-	@GetMapping("/cadastrar")
-	public String cadastrar(Usuario usuario) {
-		return "usuario/cadastro";
+
+	@GetMapping(value = {"/index", "/"})
+	public String index1() {
+		return "admin/index";
 	}
-	
-	@GetMapping("/listar")
-	public String listar(ModelMap model) {
-		model.addAttribute("usuarios",service.buscarTodos());
-		return "usuario/lista";
+
+	/*
+	 * PARTE PARA O HOTEL
+	 * */
+
+	@GetMapping("/cadastrarHotel")
+	public String cadastrar(Hotel hotel, ModelMap model) {
+		Hotel h = new Hotel();
+		h.setId(null);
+		model.addAttribute("hotel", h);
+
+		return "admin/cadastroHotel";
 	}
-	
-	@PostMapping("/salvar")
-	public String salvar(@Valid Usuario usuario, BindingResult result, RedirectAttributes attr) {
-		
+
+
+	@PostMapping("/salvarHotel")
+	public String salvarHotel(@Valid Hotel hotel, BindingResult result, RedirectAttributes attr) {
 		if (result.hasErrors()) {
-			return "usuario/cadastro";
+			return "admin/cadastroHotel";
+		}
+		hotel.setSenha(encoder.encode(hotel.getSenha()));
+		hservice.salvar(hotel);
+		attr.addFlashAttribute("sucess", "hotel.create.sucess");
+		return "redirect:/hotel/listar";
+	}
+
+	@GetMapping("/editarHotel/{id}")
+	public String preEditarH(@PathVariable("id") String id, ModelMap model) {
+		model.addAttribute("hotel", hservice.buscarPorId(Long.parseLong(id)));
+		return "admin/cadastroHotel";
+	}
+
+	@PostMapping("/editarHotel")
+	public String editarH(@Valid Hotel hotel, BindingResult result, RedirectAttributes attr) {
+
+		if (result.getFieldError("nome") != null ||
+				result.getFieldError("cidade") != null ||
+				result.getFieldError("senha") != null ||
+				hotel.getEmail().isEmpty()
+		) {
+			return "admin/cadastroSite";
 		}
 
-		System.out.println("password = " + usuario.getSenha());
-		
-		usuario.setSenha(encoder.encode(usuario.getSenha()));
-		service.salvar(usuario);
-		attr.addFlashAttribute("sucess", "usuario.create.sucess");
-		return "redirect:/usuarios/listar";
-	}
-	
-	@GetMapping("/editar/{id}")
-	public String preEditar(@PathVariable("id") Long id, ModelMap model) {
-		model.addAttribute("usuario", service.buscarPorId(id));
-		return "usuario/cadastro";
-	}
-	
-	@PostMapping("/editar")
-	public String editar(@Valid Usuario usuario, BindingResult result, RedirectAttributes attr) {
-		
-		
 
-		System.out.println(usuario.getSenha());
-		
-		service.salvar(usuario);
-		attr.addFlashAttribute("sucess", "usuario.edit.sucess");
-		return "redirect:/usuarios/listar";
+		if (uservice.buscaUsuario(hotel.getEmail()) != null) {
+			if (uservice.buscaUsuario(hotel.getEmail()).getTipo().equals("ROLE_HOTEL")) {//FIXME verifica se ta certo esa role
+				if (hservice.buscarPorId(hotel.getId()).getId() != hotel.getId())
+					return "admin/cadastroSite";
+
+			} else {
+				return "admin/cadastroSite";
+			}
+		}
+
+
+		hotel.setSenha(encoder.encode(hotel.getSenha()));
+		hservice.salvar(hotel);
+		//attr.addFlashAttribute("sucess", "editora.edit.sucess");
+		return "redirect:/hotel/listar";
 	}
-	
-	@GetMapping("/excluir/{id}")
-	public String excluir(@PathVariable("id") Long id, ModelMap model) {
-		service.excluir(id);
-		model.addAttribute("sucess", "usuario.delete.sucess");
-		return listar(model);
+
+	@GetMapping("/excluirHotel/{id}")
+	public String excluirH(@PathVariable("id") String id, ModelMap model) {
+		hservice.excluir(Long.parseLong(id));
+		model.addAttribute("sucess", "editora.delete.sucess");
+
+		return "redirect:/hotel/listar";
+	}
+
+	/*
+	 * PARTE PARA O SITE
+	 * */
+
+	@GetMapping("/cadastrarSite")
+	public String cadastrarS(SiteReserva site, ModelMap model) {
+		SiteReserva s = new SiteReserva();
+		s.setId(null);
+		model.addAttribute("site", s);
+
+		return "admin/cadastroSite";
+	}
+
+
+	@PostMapping("/salvarSite")
+	public String salvarSite(@Valid SiteReserva site, BindingResult result, RedirectAttributes attr) {
+		if (result.hasErrors()) {
+			return "admin/cadastroSite";
+		}
+		site.setSenha(encoder.encode(site.getSenha()));
+		sservice.salvar(site);
+		attr.addFlashAttribute("sucess", "site.create.sucess");
+		return "redirect:/site/listar";
+	}
+
+	@GetMapping("/editarSite/{id}")
+	public String preEditarS(@PathVariable("id") String id, ModelMap model) {
+		model.addAttribute("site", sservice.buscarPorId(Long.parseLong(id)));
+		return "admin/cadastroSite";
+	}
+
+	@PostMapping("/editarSite")
+	public String editarS(@Valid SiteReserva site, BindingResult result, RedirectAttributes attr) {
+		if (result.getFieldError("nome") != null ||
+				result.getFieldError("telefone") != null ||
+				result.getFieldError("senha") != null ||
+				site.getEmail().isEmpty()
+		) {
+			return "admin/cadastroSite";
+		}
+
+
+		if (uservice.buscaUsuario(site.getEmail()) != null) {
+			if (uservice.buscaUsuario(site.getEmail()).getTipo().equals("ROLE_SITE")) {//FIXME verifica a role
+				if (sservice.buscarPorId(site.getId()).getId() != site.getId())
+					return "admin/cadastroSite";
+			} else {
+				return "admin/cadastroSite";
+			}
+		}
+
+
+		site.setSenha(encoder.encode(site.getSenha()));
+		sservice.salvar(site);
+		attr.addFlashAttribute("sucess", "site.edit.sucess");
+		return "redirect:/site/listar";
+	}
+
+	@GetMapping("/excluirSite/{id}")
+	public String excluirS(@PathVariable("id") String id, ModelMap model) {
+		Hotel site = sservice.buscarPorId(Long.valueOf(id));
+
+		sservice.excluir(Long.parseLong(id));
+		model.addAttribute("sucess", "site.delete.sucess");
+
+		return "redirect:/site/listar";//TODO adicionar html do site de reserva
 	}
 }
