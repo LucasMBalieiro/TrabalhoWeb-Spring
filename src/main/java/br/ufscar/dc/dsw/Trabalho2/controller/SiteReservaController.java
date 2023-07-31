@@ -1,8 +1,5 @@
 package br.ufscar.dc.dsw.Trabalho2.controller;
 
-import br.ufscar.dc.dsw.Trabalho2.models.Hotel;
-import br.ufscar.dc.dsw.Trabalho2.models.Promocao;
-import br.ufscar.dc.dsw.Trabalho2.service.spec.IPromocaoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -16,7 +13,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.ufscar.dc.dsw.Trabalho2.models.SiteReserva;
+import br.ufscar.dc.dsw.Trabalho2.models.Hotel;
+import br.ufscar.dc.dsw.Trabalho2.models.Promocao;
 import br.ufscar.dc.dsw.Trabalho2.service.spec.ISiteResService;
+import br.ufscar.dc.dsw.Trabalho2.service.spec.IHotelService;
+import br.ufscar.dc.dsw.Trabalho2.service.spec.IPromocaoService;
 import jakarta.validation.Valid;
 
 import java.util.List;
@@ -29,6 +30,8 @@ public class SiteReservaController {
 	private ISiteResService sservice;
 	@Autowired
 	private IPromocaoService pservice;
+	@Autowired
+	private IHotelService hservice;
 
 	@GetMapping(value={"/home","/"})
 	public String index1() {
@@ -84,6 +87,6 @@ public class SiteReservaController {
 		Authentication a = SecurityContextHolder.getContext().getAuthentication();
 		Long id = Long.valueOf(a.getName());
 
-		return sservice.buscarPorId(id);
+		return hservice.buscarPorId(id);
 	}
 }

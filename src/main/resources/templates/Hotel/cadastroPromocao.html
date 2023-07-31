@@ -4,7 +4,7 @@
 	<title>Cadastro de Hotel</title>
 </head>
 <body>
-<h1>Cadastro de Hotel</h1>
+<h1>Cadastrar Hotel</h1>
 <form action="#" th:action="${hotel.id == null} ? @{/hotel/salvar} : @{/hotel/editar/hotel.id}" th:object="${hotel}" method="POST">
 	<label for="cnpj">CNPJ:</label>
 	<input type="text" id="cnpj" name="cnpj" required><br>

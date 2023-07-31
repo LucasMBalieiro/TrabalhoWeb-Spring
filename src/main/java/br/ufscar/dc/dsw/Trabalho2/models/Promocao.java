@@ -32,12 +32,12 @@ public class Promocao extends AbstractEntity<Long> {
 
 	@NotNull
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	@Column(nullable = false, columnDefinition = "Date", name = "date")
+	@Column(nullable = false, columnDefinition = "Date", name = "dateInicio")
 	private LocalDate dataInicio;
 
 	@NotNull
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	@Column(nullable = false, columnDefinition = "Date", name = "date")
+	@Column(nullable = false, columnDefinition = "Date", name = "dateFim")
 	private LocalDate dataFim;
 
 	public Promocao(@NotNull Hotel hotel, @NotNull SiteReserva siteReserva, @NotNull BigDecimal valor, @NotNull LocalDate dataInicio, @NotNull LocalDate dataFim) {
