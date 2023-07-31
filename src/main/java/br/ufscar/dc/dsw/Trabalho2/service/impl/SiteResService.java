@@ -2,6 +2,7 @@ package br.ufscar.dc.dsw.Trabalho2.service.impl;
 
 import java.util.List;
 
+import br.ufscar.dc.dsw.Trabalho2.models.Hotel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -31,7 +32,7 @@ public class SiteResService implements ISiteResService{
 	}
 
 	@Transactional(readOnly = true)
-	public SiteReserva buscarPorId(Long id) {
+	public Hotel buscarPorId(Long id) {
 		return dao.findById(id.longValue());
 	}
 }

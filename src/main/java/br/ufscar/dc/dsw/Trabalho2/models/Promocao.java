@@ -19,6 +19,7 @@ public class Promocao extends AbstractEntity<Long> {
 
 	public void setHotel(Hotel hotel) {
 		this.hotel = hotel;
+
 	}
 
 	public SiteReserva getSiteReserva() {

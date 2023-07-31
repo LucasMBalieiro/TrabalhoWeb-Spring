@@ -4,7 +4,6 @@ import br.ufscar.dc.dsw.Trabalho2.models.Promocao;
 import br.ufscar.dc.dsw.Trabalho2.models.SiteReserva;
 import br.ufscar.dc.dsw.Trabalho2.service.spec.IPromocaoService;
 import br.ufscar.dc.dsw.Trabalho2.service.spec.ISiteResService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -23,14 +22,17 @@ import java.util.List;
 @RequestMapping("/hotel")
 public class HotelController {
 	//WIRES
-	@Autowired
-	private IHotelService hotelService;
-	@Autowired
-	private ISiteResService siteResService;
-	@Autowired
-	private IPromocaoService promocaoService;
+	private final IHotelService hotelService;
+	private final ISiteResService siteResService;
+	private final IPromocaoService promocaoService;
 
-	@GetMapping(value={"/index","/"})
+	public HotelController(IHotelService hotelService, ISiteResService siteResService, IPromocaoService promocaoService) {
+		this.hotelService = hotelService;
+		this.siteResService = siteResService;
+		this.promocaoService = promocaoService;
+	}
+
+	@GetMapping(value={"/home","/"})
 	public String HomeHotel(){
 		return "hotel/home";
 	}
@@ -48,7 +50,7 @@ public class HotelController {
 		promocao.setHotel(getCNPJAtual());
 		model.addAttribute("sites",sites);
 		model.addAttribute("promocao", promocao);
-		return "hotel/cadastroPromocao";
+		return "hotel/cadastroPromocao";//TODO fazer o html da home do hotel
 	}
 	
 	@GetMapping("/listar")
@@ -67,22 +69,27 @@ public class HotelController {
 		model.addAttribute("cidades",l2);
 		return "hotel/lista";
 	}
-	
-	@PostMapping("/salvar")
-	public String salvar(@Valid Hotel hotel, BindingResult result, RedirectAttributes attr) {
-		
-		if (result.hasErrors()) {
-			return "hotel/cadastro";
+
+	@PostMapping("/salvarPromocao")
+	public String salvarSite(@Valid Promocao promocao, BindingResult result, RedirectAttributes attr, ModelMap model) {
+
+		if (result.getErrorCount() > 0) {
+			return cadastrarPromocao(promocao, model);
 		}
 
-		System.out.println("password = " + hotel.getSenha());
-		
-		hotel.setSenha(hotel.getSenha());
-		hotelService.salvar(hotel);
-		attr.addFlashAttribute("sucess", "hotel.create.sucess");
-		return "redirect:/hotel/listar";
+		promocaoService.salvar(promocao);
+		attr.addFlashAttribute("sucess", "promocao.create.sucess");
+		return "redirect:/hotel/listarPromocoes";
 	}
-	
+
+	@GetMapping("/listarPromocoes")
+	public String listarPromocoes(ModelMap model) {
+		List<Promocao> l1 = promocaoService.buscarTodosPorHotel(getCNPJAtual());
+
+		model.addAttribute("promocoes",l1);
+		return "hotel/listaPromocoes";//TODO fazer o html da lista de promocoes do pelo hotel
+	}
+
 	@GetMapping("/editar/{id}")
 	public String preEditar(@PathVariable("id") Long id, ModelMap model) {
 		model.addAttribute("hotel", hotelService.buscarPorId(id));
