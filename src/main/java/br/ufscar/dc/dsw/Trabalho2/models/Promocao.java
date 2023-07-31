@@ -13,7 +13,46 @@ import jakarta.validation.constraints.NotNull;
 @Entity
 @Table(name = "Promocao")
 public class Promocao extends AbstractEntity<Long> {
-	
+	public Hotel getHotel() {
+		return hotel;
+	}
+
+	public void setHotel(Hotel hotel) {
+		this.hotel = hotel;
+	}
+
+	public SiteReserva getSiteReserva() {
+		return siteReserva;
+	}
+
+	public void setSiteReserva(SiteReserva siteReserva) {
+		this.siteReserva = siteReserva;
+	}
+
+	public BigDecimal getValor() {
+		return valor;
+	}
+
+	public void setValor(BigDecimal valor) {
+		this.valor = valor;
+	}
+
+	public String getDataIni() {
+		return dataIni;
+	}
+
+	public void setDataIni(String dataIni) {
+		this.dataIni = dataIni;
+	}
+
+	public String getDataFim() {
+		return dataFim;
+	}
+
+	public void setDataFim(String dataFim) {
+		this.dataFim = dataFim;
+	}
+
 	@NotNull
 	@OneToOne
 	@JoinColumn(name="hotel_id")

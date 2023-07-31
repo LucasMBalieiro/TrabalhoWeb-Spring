@@ -1,8 +1,12 @@
 package br.ufscar.dc.dsw.Trabalho2.controller;
 
+import br.ufscar.dc.dsw.Trabalho2.models.Promocao;
+import br.ufscar.dc.dsw.Trabalho2.models.SiteReserva;
 import br.ufscar.dc.dsw.Trabalho2.service.spec.IPromocaoService;
 import br.ufscar.dc.dsw.Trabalho2.service.spec.ISiteResService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -30,10 +34,21 @@ public class HotelController {
 	public String HomeHotel(){
 		return "hotel/home";
 	}
+	private Hotel getCNPJAtual() {
+		Authentication a = SecurityContextHolder.getContext().getAuthentication();
+		Long id = Long.valueOf(a.getName());
 
-	@GetMapping("/cadastrar")
-	public String cadastrar(Hotel hotel) {
-		return "hotel/cadastro";
+		return hotelService.buscarPorId(id);
+	}
+
+	@GetMapping("/cadastrarpromo")
+	public String  cadastrarPromocao(Promocao promocao, ModelMap model) {
+		List<SiteReserva> sites = siteResService.buscarTodos();
+
+		promocao.setHotel(getCNPJAtual());
+		model.addAttribute("sites",sites);
+		model.addAttribute("promocao", promocao);
+		return "hotel/cadastroPromocao";
 	}
 	
 	@GetMapping("/listar")
