@@ -1,5 +1,6 @@
 package br.ufscar.dc.dsw.Trabalho2.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,5 +34,23 @@ public class HotelService implements IHotelService{
 	@Transactional(readOnly = true)
 	public Hotel buscarPorId(Long id) {
 		return dao.findById(id.longValue());
+	}
+
+	@Transactional(readOnly = true)
+	public List<Hotel> buscarTodosPorCidade(String cidade){
+		return dao.findAllByCidade(cidade);
+	}
+
+	public List<String> buscarCidades(){
+		List<String> l = new ArrayList<String>();
+		List<Hotel> hoteis = this.buscarTodos();
+
+		for(Hotel hotel: hoteis) {
+			String cidade = hotel.getCidade();
+			if (!l.contains(cidade)) {
+				l.add(cidade);
+			}
+		}
+		return l;
 	}
 }
