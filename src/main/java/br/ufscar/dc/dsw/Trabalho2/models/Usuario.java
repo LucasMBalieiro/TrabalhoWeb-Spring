@@ -9,11 +9,10 @@ import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 
 
-@SuppressWarnings("serial")
 @Entity
 @Table(name = "Usuario")
 @Inheritance(strategy = InheritanceType.JOINED)
-public class Usuario extends AbstractEntity<Long> {
+public abstract class Usuario extends AbstractEntity<Long> {
 
 	
 	@NotBlank(message = "{NotNull.usuario.email}")
