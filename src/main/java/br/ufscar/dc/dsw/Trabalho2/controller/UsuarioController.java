@@ -1,6 +1,7 @@
 package br.ufscar.dc.dsw.Trabalho2.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -20,6 +21,9 @@ public class UsuarioController {
 	
 	@Autowired
 	private IUsuarioService service;
+	
+	@Autowired
+	private BCryptPasswordEncoder encoder;
 	
 	@GetMapping("/cadastrar")
 	public String cadastrar(Usuario usuario) {
@@ -41,7 +45,7 @@ public class UsuarioController {
 
 		System.out.println("password = " + usuario.getSenha());
 		
-		usuario.setSenha(usuario.getSenha());
+		usuario.setSenha(encoder.encode(usuario.getSenha()));
 		service.salvar(usuario);
 		attr.addFlashAttribute("sucess", "usuario.create.sucess");
 		return "redirect:/usuarios/listar";
