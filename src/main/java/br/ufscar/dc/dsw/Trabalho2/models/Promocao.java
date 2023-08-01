@@ -1,7 +1,6 @@
 package br.ufscar.dc.dsw.Trabalho2.models;
 
 import java.math.BigDecimal;
-import java.sql.Date;
 import java.time.LocalDate;
 
 import jakarta.persistence.Column;
@@ -51,10 +50,6 @@ public class Promocao extends AbstractEntity<Long> {
 
 	public Promocao() {
 
-	}
-
-	public Promocao(SiteReserva s1, Hotel h1, int i, Date date, Date date1) {
-		super();
 	}
 
 	public Hotel getHotel() {
