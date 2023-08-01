@@ -51,7 +51,18 @@ public class Hotel extends Usuario{
 		this.cidade = cidade;
 	}
 
-	public Hotel(String cnpj, String nome, String cidade) {
+
+	public String getEmail() {
+		return super.getEmail();
+	}
+
+
+	public void setEnabled(boolean b) {
+		super.setEnabled(b);
+	}
+
+	public Hotel(String email, String senha, String tipo, String cnpj, String nome, String cidade) {
+		super(email, senha, tipo);
 		this.cnpj = cnpj;
 		this.nome = nome;
 		this.cidade = cidade;
