@@ -23,7 +23,7 @@ import jakarta.validation.Valid;
 import java.util.List;
 
 @Controller
-@RequestMapping("/sitereserva")
+@RequestMapping("/site")
 public class SiteReservaController {
 
 	@Autowired

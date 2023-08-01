@@ -12,7 +12,7 @@ import jakarta.validation.constraints.NotBlank;
 @Entity
 @Table(name = "Usuario")
 @Inheritance(strategy = InheritanceType.JOINED)
-public abstract class Usuario extends AbstractEntity<Long> {
+public class Usuario extends AbstractEntity<Long> {
 
 	
 	@NotBlank(message = "{NotNull.usuario.email}")
@@ -51,4 +51,15 @@ public abstract class Usuario extends AbstractEntity<Long> {
 	public void setTipo(String tipo) {
 		this.tipo = tipo;
 	}
+
+
+	public Usuario() {
+	}
+
+	public Usuario(String email, String senha, String tipo) {
+		this.email = email;
+		this.senha = senha;
+		this.tipo = tipo;
+	}
+
 }

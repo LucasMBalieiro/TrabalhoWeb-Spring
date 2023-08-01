@@ -23,7 +23,11 @@ public class SiteReserva extends Usuario {
 	@NotBlank(message = "{NotNull.site.telefone}")
 	@Column(nullable = false, length = 20)
 	private String telefone;
-	
+
+	public SiteReserva() {
+
+	}
+
 	public String getUrl() {
 		return url;
 	}
@@ -42,7 +46,18 @@ public class SiteReserva extends Usuario {
 	public void setTelefone(String telefone) {
 		this.telefone = telefone;
 	}
-	
-	
 
+
+	public SiteReserva(String url, String nome, String telefone) {
+		this.url = url;
+		this.nome = nome;
+		this.telefone = telefone;
+	}
+
+	public SiteReserva(String email, String senha, String tipo, String url, String nome, String telefone) {
+		super(email, senha, tipo);
+		this.url = url;
+		this.nome = nome;
+		this.telefone = telefone;
+	}
 }

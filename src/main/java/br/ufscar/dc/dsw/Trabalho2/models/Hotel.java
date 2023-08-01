@@ -51,7 +51,20 @@ public class Hotel extends Usuario{
 		this.cidade = cidade;
 	}
 
+<<<<<<< Updated upstream
 	public Hotel(String cnpj, String nome, String cidade) {
+=======
+
+	public String getEmail() {
+		return super.getEmail();
+	}
+
+
+
+
+	public Hotel(String email, String senha, String tipo, String cnpj, String nome, String cidade) {
+		super(email, senha, tipo);
+>>>>>>> Stashed changes
 		this.cnpj = cnpj;
 		this.nome = nome;
 		this.cidade = cidade;
